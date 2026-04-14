@@ -219,6 +219,28 @@ const pl: IBaseLocale = {
     SCHEDULING_DATA_ALL_DELETION_IN_PROGRESS: "Scheduling data deletion in progress...",
     SCHEDULING_DATA_HAS_BEEN_DELETED:
         "Scheduling data has been deleted from all notes and flashcards.",
+    GAMIFICATION: "Gamifikacja",
+    GROUP_HABITICA: "Habitica",
+    ENABLE_HABITICA_INTEGRATION: "Odblokuj integrację z Habitica.",
+    ENABLE_HABITICA_INTEGRATION_DESC:
+        "Supercharge your spaced repetation and active recall habits.",
+    HABITICA_USER_ID: "ID Użytkownika",
+    HABITICA_USER_ID_DESC: "Unikatowe ID, które identyfikuje Cię w Habitica.",
+    HABITICA_API_TOKEN: "Token API",
+    HABITICA_API_TOKEN_DESC: "Niezbędny do autentykacji zapytań API.",
+    HABITICA_EASY_TASK_ID: "Easy Task ID",
+    HABITICA_EASY_TASK_ID_DESC:
+        "ID zadania, kóre będzie punktowane, gdy oceniasz fiszkę/notatkę jako łatwą.",
+    HABITICA_GOOD_TASK_ID: "Good Task ID",
+    HABITICA_GOOD_TASK_ID_DESC:
+        "ID zadania, które będzie punktowane, gdy oceniasz fiszkę/notatkę jako średnio trudną.",
+    HABITICA_HARD_TASK_ID: "Hard Task ID",
+    HABITICA_HARD_TASK_ID_DESC:
+        "ID zadania, które będzie punktowane, gdy oceniasz fiszkę/notatkę jako trudną.",
+    RETRIEVE_HABITICA_TASK_IDS: "Pobierz ID zadań z Habitica",
+    RETRIEVE_HABITICA_TASK_IDS_DESC:
+        "Automatycznie pobierz ID zadań z twojego konta Habitica. Wyszuka zadania o nazwach 'Spaced Repetition Easy', 'Spaced Repetition Good' i 'Spaced Repetition Hard'.",
+    RETRIEVE_TASK_IDS: "Pobierz ID zadań",
 
     // sidebar.ts
     NOTES_REVIEW_QUEUE: "Kolejka przeglądu notatek",
