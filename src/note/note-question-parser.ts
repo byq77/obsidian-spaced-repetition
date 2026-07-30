@@ -369,11 +369,12 @@ export class NoteQuestionParser {
             }
         }
 
-        if (result === null) {
-            // TODO: Remove this warning once the issue is fixed
-            console.log(
-                "WARNING: No topic path list found. Please reload the deck list by closing and reopening the view",
-            );
+        if (
+            result &&
+            result !== this.frontmatterTopicPathList &&
+            this.settings.alwaysIncludeFrontmatterTags
+        ) {
+            result.extend(this.frontmatterTopicPathList);
         }
 
         return result;

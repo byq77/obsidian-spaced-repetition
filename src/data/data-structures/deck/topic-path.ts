@@ -159,6 +159,22 @@ export class TopicPathList {
         result.lineNum = lineNum;
         return result;
     }
+    
+    extend(other?: TopicPathList): void {
+        if (!other) return;
+        const newList: TopicPath[] = [...this.list];
+        for (const otherTopicPath of other.list) {
+            let foundMatch = false;
+            for (const thisTopicPath of this.list) {
+                if (thisTopicPath.isSameOrAncestorOf(otherTopicPath)) {
+                    foundMatch = true;
+                    break;
+                }
+            }
+            if (!foundMatch) newList.push(otherTopicPath);
+        }
+        this.list = newList;
+    }
 
     //
     // tagList is a list of tags such as:
