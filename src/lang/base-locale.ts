@@ -227,6 +227,8 @@ export interface IBaseLocale {
     SCHEDULING_DATA_HAS_BEEN_DELETED: string;
     USE_CUSTOM_HOTKEYS: string;
     USE_CUSTOM_HOTKEYS_DESC: string;
+    ALWAYS_INCLUDE_FRONTMATTER_TAGS: string;
+    ALWAYS_INCLUDE_FRONTMATTER_TAGS_DESC: string;
 
     // sidebar.ts
     NOTES_REVIEW_QUEUE: string;

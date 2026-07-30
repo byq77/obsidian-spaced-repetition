@@ -284,7 +284,9 @@ const en: IBaseLocale = {
     USE_CUSTOM_HOTKEYS: "Use custom hotkeys",
     USE_CUSTOM_HOTKEYS_DESC:
         "Enable custom hotkeys for the review cards commands. The default hotkeys wont be active after enabling this. Custom hotkeys can only be used when using the 'Open in new tab' option.",
-
+    ALWAYS_INCLUDE_FRONTMATTER_TAGS: "Always include tags from frontmatter",
+    ALWAYS_INCLUDE_FRONTMATTER_TAGS_DESC: "Always add cards to decks defined by frontmatter tags.",
+    
     // sidebar.ts
     NOTES_REVIEW_QUEUE: "Notes Review Queue",
     CLOSE: "Close",
