@@ -7,6 +7,7 @@ import { t } from "src/lang/helpers";
 import SRPlugin from "src/main";
 import { DataPage } from "src/ui/obsidian-ui-components/content-container/settings-page/data-page";
 import { FlashcardsPage } from "src/ui/obsidian-ui-components/content-container/settings-page/flashcards-page";
+import { GamificationPage } from "src/ui/obsidian-ui-components/content-container/settings-page/gamification-page";
 import { MainPage } from "src/ui/obsidian-ui-components/content-container/settings-page/main-page";
 import { NotesPage } from "src/ui/obsidian-ui-components/content-container/settings-page/notes-page";
 import { SchedulingPage } from "src/ui/obsidian-ui-components/content-container/settings-page/scheduling-page";
@@ -27,7 +28,8 @@ export type SettingsPageType =
     | "scheduling-page"
     | "ui-preferences-page"
     | "data-page"
-    | "statistics-page";
+    | "statistics-page"
+    | "gamification-page";
 
 /**
  * Represents an array of all available settings page types.
@@ -42,6 +44,7 @@ export const SettingsPageTypesArray: ReadonlyArray<SettingsPageType> = [
     "ui-preferences-page",
     "data-page",
     "statistics-page",
+    "gamification-page",
 ];
 
 /**
@@ -66,6 +69,8 @@ export function getPageName(pageType: SettingsPageType): string {
             return t("DATA_PAGE_NAME");
         case "statistics-page":
             return t("STATS_TITLE");
+        case "gamification-page":
+            return t("GAMIFICATION");
     }
 }
 
@@ -91,6 +96,8 @@ export function getPageIcon(pageType: SettingsPageType): string {
             return "hard-drive";
         case "statistics-page":
             return "bar-chart-3";
+        case "gamification-page":
+            return "dice";
     }
 }
 
@@ -272,6 +279,21 @@ export class SettingsPageManager {
                             this.settingsManager,
                             this.dataManager,
                             pageType,
+                            this.openPage.bind(this),
+                            this.scrollListener.bind(this),
+                        ),
+                    );
+                    break;
+                case "gamification-page":
+                    this.pages.push(
+                        new GamificationPage(
+                            newPageContainerEl,
+                            this.plugin,
+                            this.settingsManager,
+                            this.dataManager,
+                            pageType,
+                            this.applySettingsUpdate.bind(this),
+                            this.display,
                             this.openPage.bind(this),
                             this.scrollListener.bind(this),
                         ),
