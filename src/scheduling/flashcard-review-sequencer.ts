@@ -21,7 +21,6 @@ import { RepItemState, ReviewResponse } from "src/scheduling/algorithms/base/rep
 import { DueDateHistogram } from "src/scheduling/due-date-histogram";
 import { globalDateProvider } from "src/utils/dates";
 
-
 export interface IFlashcardReviewSequencer {
     get hasCurrentCard(): boolean;
     get hasPendingCards(): boolean;
@@ -127,7 +126,7 @@ export class FlashcardReviewSequencer implements IFlashcardReviewSequencer {
     private dueDateFlashcardHistogram: DueDateHistogram;
     private pendingCards: PendingCard[] = [];
     private currentTopicPath: TopicPath = TopicPath.emptyPath;
-    private gamificationScorer: IGamificationScorer;    
+    private gamificationScorer: IGamificationScorer;
 
     constructor(
         reviewMode: FlashcardReviewMode,

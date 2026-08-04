@@ -89,10 +89,7 @@ export class DataManager {
      * Loads the plugin data from the data.json from the plugin's folder.
      */
     loadData(): void {
-        GamificationScorer.instance = new HabiticaScorer(
-            this.plugin,
-            this.settingsManager,
-        );        
+        GamificationScorer.instance = new HabiticaScorer(this.plugin, this.settingsManager);
         this.setupDataStoreAndAlgorithmInstances(this.settingsManager.settings);
     }
 

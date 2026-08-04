@@ -26,8 +26,12 @@ export class HabiticaScorer implements IGamificationScorer {
             return;
         }
 
-        const userId = this.plugin.app.secretStorage.getSecret(this.settingsManager.settings.habiticaUserId);
-        const apiToken = this.plugin.app.secretStorage.getSecret(this.settingsManager.settings.habiticaApiToken);
+        const userId = this.plugin.app.secretStorage.getSecret(
+            this.settingsManager.settings.habiticaUserId,
+        );
+        const apiToken = this.plugin.app.secretStorage.getSecret(
+            this.settingsManager.settings.habiticaApiToken,
+        );
 
         if (!userId || !apiToken) {
             console.warn("HabiticaScorer: Missing Habitica credentials");
@@ -58,7 +62,12 @@ export class HabiticaScorer implements IGamificationScorer {
                 },
             });
 
-            const body = (await response.json()) as { success?: boolean; message?: string; error?: string; data?: unknown };
+            const body = (await response.json()) as {
+                success?: boolean;
+                message?: string;
+                error?: string;
+                data?: unknown;
+            };
 
             if (!response.ok || body.success === false) {
                 const message = body?.message || `HTTP ${response.status}`;

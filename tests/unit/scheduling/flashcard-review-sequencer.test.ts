@@ -12,6 +12,7 @@ import {
 } from "src/data/data-structures/deck/deck-tree-iterator";
 import { TopicPath } from "src/data/data-structures/deck/topic-path";
 import { DEFAULT_SETTINGS, SRSettings } from "src/data/settings";
+import { GamificationScorer } from "src/gamification/base/gamification-scorer";
 import { RepItemState, ReviewResponse } from "src/scheduling/algorithms/base/repetition-item";
 import { SRAlgorithm } from "src/scheduling/algorithms/base/sr-algorithm";
 import { RepItemScheduleInfoFsrs } from "src/scheduling/algorithms/fsrs/rep-item-schedule-info-fsrs";
@@ -29,7 +30,10 @@ import {
 import { setupNextRandomNumber, setupStaticRandomNumberProvider } from "src/utils/numbers";
 
 import { UnitTestSRFile } from "../helpers/unit-test-file";
-import { unitTestSetupStandardDataStoreAlgorithm } from "../helpers/unit-test-setup";
+import {
+    unitTestSetupGamificationScorer,
+    unitTestSetupStandardDataStoreAlgorithm,
+} from "../helpers/unit-test-setup";
 import { SampleItemDecks } from "../sample-items";
 
 const orderDueFirstSequential: IIteratorOrder = {
@@ -67,6 +71,7 @@ class TestContext {
             cardSequencer,
             this.settings,
             SRAlgorithm.getInstance(),
+            GamificationScorer.getInstance(),
             this.questionPostponementList,
             this.dueDateFlashcardHistogram,
         );
@@ -109,6 +114,7 @@ class TestContext {
         const settingsClone: SRSettings = { ...settings };
         const cardSequencer: IDeckTreeIterator = new DeckTreeIterator(iteratorOrder, null);
         unitTestSetupStandardDataStoreAlgorithm(settingsClone);
+        unitTestSetupGamificationScorer();
         const cardPostponementList: QuestionPostponementList = new QuestionPostponementList(
             null,
             settingsClone,
@@ -120,6 +126,7 @@ class TestContext {
             cardSequencer,
             settingsClone,
             SRAlgorithm.getInstance(),
+            GamificationScorer.getInstance(),
             cardPostponementList,
             dueDateFlashcardHistogram,
         );

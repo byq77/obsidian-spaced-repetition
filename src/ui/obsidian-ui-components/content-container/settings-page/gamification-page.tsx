@@ -152,14 +152,16 @@ export class GamificationPage extends SettingsPage {
                             })
                             .setDisabled(
                                 !this.settingsManager.settings.habiticaUserId ||
-                                !this.settingsManager.settings.habiticaApiToken,
+                                    !this.settingsManager.settings.habiticaApiToken,
                             ),
                     )
                     .setDisabled(!this.settingsManager.settings.enableHabiticaIntegration);
             });
     }
     private async retrieveHabiticaTaskIds(): Promise<void> {
-        const userId = this.plugin.app.secretStorage.getSecret(this.settingsManager.settings.habiticaUserId);
+        const userId = this.plugin.app.secretStorage.getSecret(
+            this.settingsManager.settings.habiticaUserId,
+        );
         const apiToken = this.plugin.app.secretStorage.getSecret(
             this.settingsManager.settings.habiticaApiToken,
         );
@@ -182,7 +184,12 @@ export class GamificationPage extends SettingsPage {
                 },
             });
 
-            const body = (await response.json()) as { success?: boolean; message?: string; error?: string; data?: unknown };
+            const body = (await response.json()) as {
+                success?: boolean;
+                message?: string;
+                error?: string;
+                data?: unknown;
+            };
 
             if (!response.ok || body.success === false) {
                 const message = body?.message || `HTTP ${response.status}`;

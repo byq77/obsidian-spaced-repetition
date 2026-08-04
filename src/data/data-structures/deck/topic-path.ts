@@ -159,7 +159,7 @@ export class TopicPathList {
         result.lineNum = lineNum;
         return result;
     }
-    
+
     extend(other?: TopicPathList): void {
         if (!other) return;
         const newList: TopicPath[] = [...this.list];

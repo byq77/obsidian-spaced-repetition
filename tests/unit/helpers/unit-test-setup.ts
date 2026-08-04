@@ -3,6 +3,9 @@ import { DataStoreAlgorithm } from "src/data/data-store/base/data-store-algorith
 import { NoteDataStoreAlgorithmOsr } from "src/data/data-store/notes-data-store/note-data-store-algorithm-osr";
 import { NotesDataStore } from "src/data/data-store/notes-data-store/notes-data-store";
 import { SRSettings } from "src/data/settings";
+import { GamificationScorer } from "src/gamification/base/gamification-scorer";
+import { IGamificationScorer } from "src/gamification/base/igamification-scorer";
+import { ReviewResponse } from "src/scheduling/algorithms/base/repetition-item";
 import { SRAlgorithm } from "src/scheduling/algorithms/base/sr-algorithm";
 import { SRAlgorithmOsr } from "src/scheduling/algorithms/osr/srs-algorithm-osr";
 
@@ -12,4 +15,15 @@ export function unitTestSetupStandardDataStoreAlgorithm(settings: SRSettings) {
     DataStore.instance = new NotesDataStore(settings, new UnitTestFileModifier());
     SRAlgorithm.instance = new SRAlgorithmOsr(settings);
     DataStoreAlgorithm.instance = new NoteDataStoreAlgorithmOsr(settings);
+}
+
+export function unitTestSetupGamificationScorer() {
+    // Mock implementation of IGamificationScorer for testing purposes
+    class MockGamificationScorer implements IGamificationScorer {
+        async score(_response: ReviewResponse): Promise<void> {
+            // Mock scoring logic, can be left empty for testing
+        }
+    }
+
+    GamificationScorer.instance = new MockGamificationScorer();
 }

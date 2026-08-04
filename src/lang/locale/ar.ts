@@ -122,7 +122,7 @@ const ar: IBaseLocale = {
     LOGGING: "تسجيل",
     DISPLAY_SCHEDULING_DEBUG_INFO: "عرض معلومات التصحيح على وحدة تحكم المطور",
     ALWAYS_INCLUDE_FRONTMATTER_TAGS: "Always include tags from frontmatter",
-    ALWAYS_INCLUDE_FRONTMATTER_TAGS_DESC: "Always add cards to decks defined by frontmatter tags.",    
+    ALWAYS_INCLUDE_FRONTMATTER_TAGS_DESC: "Always add cards to decks defined by frontmatter tags.",
 
     // sidebar.ts
     NOTES_REVIEW_QUEUE: "ملاحظات قائمة المراجعة",

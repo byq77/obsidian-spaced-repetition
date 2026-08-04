@@ -192,14 +192,14 @@ export const DEFAULT_SETTINGS: SRSettings = {
     showParserDebugMessages: false,
     preferredDateFormatForNoteReviewQueue: "MMM DD YYYY",
     preferredLocale: "-",
-    
+
     // gamification
     enableHabiticaIntegration: false,
     habiticaUserId: "",
     habiticaApiToken: "",
     flashcardEasyTaskId: "",
     flashcardGoodTaskId: "",
-    flashcardHardTaskId: "",    
+    flashcardHardTaskId: "",
 };
 
 export function upgradeSettings(settings: SRSettings) {

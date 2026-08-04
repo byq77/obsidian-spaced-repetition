@@ -233,7 +233,7 @@ const de: IBaseLocale = {
     SCHEDULING_DATA_HAS_BEEN_DELETED:
         "Scheduling data has been deleted from all notes and flashcards.",
     ALWAYS_INCLUDE_FRONTMATTER_TAGS: "Always include tags from frontmatter",
-    ALWAYS_INCLUDE_FRONTMATTER_TAGS_DESC: "Always add cards to decks defined by frontmatter tags.",        
+    ALWAYS_INCLUDE_FRONTMATTER_TAGS_DESC: "Always add cards to decks defined by frontmatter tags.",
 
     // sidebar.ts
     NOTES_REVIEW_QUEUE: "Anstehende Notizen zur Wiederholung",

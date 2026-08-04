@@ -308,7 +308,7 @@ const en: IBaseLocale = {
     RETRIEVE_HABITICA_TASK_IDS_DESC:
         "Automatically fetch task IDs from your Habitica account. This will look for habits named 'Spaced Repetition Easy', 'Spaced Repetition Good', and 'Spaced Repetition Hard'.",
     RETRIEVE_TASK_IDS: "Retrieve Task IDs",
-    
+
     // sidebar.ts
     NOTES_REVIEW_QUEUE: "Notes Review Queue",
     CLOSE: "Close",

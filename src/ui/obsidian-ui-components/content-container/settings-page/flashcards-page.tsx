@@ -84,7 +84,7 @@ export class FlashcardsPage extends SettingsPage {
                                 await this.settingsManager.save();
                             }),
                     );
-            })            
+            })
             .addSetting((setting: Setting) => {
                 setting
                     .setName(t("BURY_SIBLINGS_TILL_NEXT_DAY"))

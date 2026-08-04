@@ -9,6 +9,10 @@ import {
 } from "src/data/data-structures/deck/deck-tree-iterator";
 import { TopicPath } from "src/data/data-structures/deck/topic-path";
 import { DEFAULT_SETTINGS, SRSettings } from "src/data/settings";
+import { GamificationScorer } from "src/gamification/base/gamification-scorer";
+import {} from // IGamificationScorer
+"src/gamification/base/igamification-scorer";
+// import { HabiticaScorer } from "src/gamification/habitica/habitica-scorer";
 import { SRAlgorithm } from "src/scheduling/algorithms/base/sr-algorithm";
 import { CardDueDateHistogram } from "src/scheduling/due-date-histogram";
 import {
@@ -19,7 +23,10 @@ import {
 import { setupStaticDateProvider20230906 } from "src/utils/dates";
 
 import { UnitTestSRFile } from "../helpers/unit-test-file";
-import { unitTestSetupStandardDataStoreAlgorithm } from "../helpers/unit-test-setup";
+import {
+    unitTestSetupGamificationScorer,
+    unitTestSetupStandardDataStoreAlgorithm,
+} from "../helpers/unit-test-setup";
 import { SampleItemDecks } from "../sample-items";
 
 const orderDueFirstSequential: IIteratorOrder = {
@@ -66,6 +73,7 @@ class TestContext {
         const settingsClone: SRSettings = { ...settings };
         const cardSequencer: IDeckTreeIterator = new DeckTreeIterator(iteratorOrder, null);
         unitTestSetupStandardDataStoreAlgorithm(settingsClone);
+        unitTestSetupGamificationScorer();
         const cardPostponementList: QuestionPostponementList = new QuestionPostponementList(
             null,
             settingsClone,
@@ -77,6 +85,7 @@ class TestContext {
             cardSequencer,
             settingsClone,
             SRAlgorithm.getInstance(),
+            GamificationScorer.getInstance(),
             cardPostponementList,
             dueDateFlashcardHistogram,
         );
