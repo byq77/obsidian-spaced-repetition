@@ -1,32 +1,33 @@
-import { SecretStorage } from "obsidian";
-
-import { ReviewResponse } from "src/algorithms/base/repetition-item";
+import { SRSettings } from "src/data/settings";
+import { SettingsManager } from "src/data/settings-manager";
 import { IGamificationScorer } from "src/gamification/base/igamification-scorer";
-import { SRSettings } from "src/settings";
+import SRPlugin from "src/main";
+import { ReviewResponse } from "src/scheduling/algorithms/base/repetition-item";
 
 export class HabiticaScorer implements IGamificationScorer {
-    private secretStorage: SecretStorage;
-    private settings: SRSettings;
+    private plugin: SRPlugin;
+    private settingsManager: SettingsManager;
     private taskMapping: Record<ReviewResponse, keyof SRSettings | null>;
-    constructor(secretStorage: SecretStorage, settings: SRSettings) {
-        this.secretStorage = secretStorage;
-        this.settings = settings;
+    constructor(plugin: SRPlugin, settingsManager: SettingsManager) {
+        this.plugin = plugin;
+        this.settingsManager = settingsManager;
         this.taskMapping = {
             [ReviewResponse.Easy]: "flashcardEasyTaskId",
             [ReviewResponse.Good]: "flashcardGoodTaskId",
             [ReviewResponse.Hard]: "flashcardHardTaskId",
             [ReviewResponse.Reset]: null, // No task for reset response
+            [ReviewResponse.Again]: null, // No task for reset response
         };
     }
 
     async score(response: ReviewResponse): Promise<void> {
-        if (!this.settings.enableHabiticaIntegration) {
+        if (!this.settingsManager.settings.enableHabiticaIntegration) {
             // console.warn("HabiticaScorer: Integration disabled, skipping API call");
             return;
         }
 
-        const userId = this.secretStorage.getSecret(this.settings.habiticaUserId);
-        const apiToken = this.secretStorage.getSecret(this.settings.habiticaApiToken);
+        const userId = this.plugin.app.secretStorage.getSecret(this.settingsManager.settings.habiticaUserId);
+        const apiToken = this.plugin.app.secretStorage.getSecret(this.settingsManager.settings.habiticaApiToken);
 
         if (!userId || !apiToken) {
             console.warn("HabiticaScorer: Missing Habitica credentials");
@@ -38,7 +39,7 @@ export class HabiticaScorer implements IGamificationScorer {
             console.warn("HabiticaScorer: No task mapped for reset response, skipping API call");
             return;
         }
-        const taskId = this.settings[taskSettingKey];
+        const taskId = this.settingsManager.settings[taskSettingKey];
         if (!taskId || typeof taskId !== "string") {
             console.warn("HabiticaScorer: No points for Reset response");
             return;
@@ -57,7 +58,7 @@ export class HabiticaScorer implements IGamificationScorer {
                 },
             });
 
-            const body = await response.json();
+            const body = (await response.json()) as { success?: boolean; message?: string; error?: string; data?: unknown };
 
             if (!response.ok || body.success === false) {
                 const message = body?.message || `HTTP ${response.status}`;
