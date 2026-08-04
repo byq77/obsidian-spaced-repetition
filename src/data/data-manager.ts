@@ -13,6 +13,8 @@ import { PluginData } from "src/data/plugin-data";
 import { PluginDataManager } from "src/data/plugin-data-manager";
 import { SettingsUtil, SRSettings } from "src/data/settings";
 import { SettingsManager } from "src/data/settings-manager";
+import { GamificationScorer } from "src/gamification/base/gamification-scorer";
+import { HabiticaScorer } from "src/gamification/habitica/habitica-scorer";
 import { t } from "src/lang/helpers";
 import SRPlugin from "src/main";
 import { Note } from "src/note/note";
@@ -87,6 +89,10 @@ export class DataManager {
      * Loads the plugin data from the data.json from the plugin's folder.
      */
     loadData(): void {
+        GamificationScorer.instance = new HabiticaScorer(
+            this.plugin,
+            this.settingsManager,
+        );        
         this.setupDataStoreAndAlgorithmInstances(this.settingsManager.settings);
     }
 

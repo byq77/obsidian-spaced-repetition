@@ -13,12 +13,14 @@ import { Deck } from "src/data/data-structures/deck/deck";
 import { IDeckTreeIterator } from "src/data/data-structures/deck/deck-tree-iterator";
 import { TopicPath } from "src/data/data-structures/deck/topic-path";
 import { SRSettings } from "src/data/settings";
+import { IGamificationScorer } from "src/gamification/base/igamification-scorer";
 import { Note } from "src/note/note";
 import { ISRAlgorithm } from "src/scheduling/algorithms/base/isr-algorithm";
 import { RepItemScheduleInfo } from "src/scheduling/algorithms/base/rep-item-schedule-info";
 import { RepItemState, ReviewResponse } from "src/scheduling/algorithms/base/repetition-item";
 import { DueDateHistogram } from "src/scheduling/due-date-histogram";
 import { globalDateProvider } from "src/utils/dates";
+
 
 export interface IFlashcardReviewSequencer {
     get hasCurrentCard(): boolean;
@@ -125,12 +127,14 @@ export class FlashcardReviewSequencer implements IFlashcardReviewSequencer {
     private dueDateFlashcardHistogram: DueDateHistogram;
     private pendingCards: PendingCard[] = [];
     private currentTopicPath: TopicPath = TopicPath.emptyPath;
+    private gamificationScorer: IGamificationScorer;    
 
     constructor(
         reviewMode: FlashcardReviewMode,
         cardSequencer: IDeckTreeIterator,
         settings: SRSettings,
         srsAlgorithm: ISRAlgorithm,
+        gamificationScorer: IGamificationScorer,
         questionPostponementList: IQuestionPostponementList,
         dueDateFlashcardHistogram: DueDateHistogram,
     ) {
@@ -138,6 +142,7 @@ export class FlashcardReviewSequencer implements IFlashcardReviewSequencer {
         this.cardSequencer = cardSequencer;
         this.settings = settings;
         this.srsAlgorithm = srsAlgorithm;
+        this.gamificationScorer = gamificationScorer;
         this.questionPostponementList = questionPostponementList;
         this.dueDateFlashcardHistogram = dueDateFlashcardHistogram;
     }
@@ -271,10 +276,12 @@ export class FlashcardReviewSequencer implements IFlashcardReviewSequencer {
     async processReview(response: ReviewResponse): Promise<void> {
         switch (this.reviewMode) {
             case FlashcardReviewMode.Review:
+                await this.gamificationScorer.score(response);
                 await this.processReviewReviewMode(response);
                 break;
 
             case FlashcardReviewMode.Cram:
+                await this.gamificationScorer.score(response);
                 this.processReviewCramMode(response);
                 break;
         }

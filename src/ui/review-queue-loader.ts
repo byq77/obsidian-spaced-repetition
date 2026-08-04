@@ -10,6 +10,7 @@ import {
     RepItemOrder,
 } from "src/data/data-structures/deck/deck-tree-iterator";
 import { SRSettings } from "src/data/settings";
+import { GamificationScorer } from "src/gamification/base/gamification-scorer";
 import SRPlugin from "src/main";
 import { Note } from "src/note/note";
 import { SRAlgorithm } from "src/scheduling/algorithms/base/sr-algorithm";
@@ -99,6 +100,7 @@ export class ReviewQueueLoader {
             deckIterator,
             this.plugin.dataManager.data.settings,
             SRAlgorithm.getInstance(),
+            GamificationScorer.getInstance(),
             this.plugin.dataManager.osrCore.questionPostponementList,
             this.plugin.dataManager.osrCore.dueDateFlashcardHistogram,
         );
